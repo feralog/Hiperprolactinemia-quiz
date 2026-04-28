@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Hiperprolactinemia</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; min-height: 100vh; }
+  header { background: #1e3a5f; color: white; padding: 20px 30px; text-align: center; }
+  header h1 { font-size: 22px; margin-bottom: 4px; }
+  header p { font-size: 13px; opacity: 0.8; }
+  .quiz-container { max-width: 800px; margin: 30px auto; padding: 0 16px 60px; }
+  #startScreen { background: white; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  #startScreen h2 { font-size: 20px; color: #1e3a5f; margin-bottom: 12px; }
+  #startScreen p { font-size: 14px; color: #555; margin-bottom: 24px; line-height: 1.6; }
+  .progress-bar-bg { background: #dde3ea; border-radius: 8px; height: 8px; margin-bottom: 8px; }
+  .progress-bar-fill { background: #2563eb; height: 8px; border-radius: 8px; transition: width 0.4s ease; }
+  .progress-label { font-size: 12px; color: #666; margin-bottom: 20px; }
+  .question-card { background: white; border-radius: 12px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 16px; }
+  .question-number { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #2563eb; letter-spacing: 1px; margin-bottom: 10px; }
+  .question-text { font-size: 15px; line-height: 1.65; color: #1a1a1a; margin-bottom: 22px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn { background: #f7f9fc; border: 2px solid #dde3ea; border-radius: 8px; padding: 12px 16px; text-align: left; font-size: 14px; cursor: pointer; transition: background 0.15s, border-color 0.15s; line-height: 1.5; }
+  .option-btn:hover:not(:disabled) { background: #e8f0fe; border-color: #2563eb; }
+  .option-btn.correct { background: #d1fae5; border-color: #16a34a; color: #166534; }
+  .option-btn.wrong { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+  .option-btn:disabled { cursor: default; }
+  .explanation { display: none; background: #f0fdf4; border-left: 4px solid #16a34a; border-radius: 0 8px 8px 0; padding: 14px 16px; margin-top: 14px; font-size: 13px; line-height: 1.6; color: #166534; }
+  .explanation.show { display: block; }
+  .btn-next { display: none; margin-top: 18px; background: #2563eb; color: white; border: none; border-radius: 8px; padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-next:hover { background: #1d4ed8; }
+  .btn-next.show { display: inline-block; }
+  .btn-primary { background: #2563eb; color: white; border: none; border-radius: 8px; padding: 14px 36px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn-primary:hover { background: #1d4ed8; }
+  #resultScreen { display: none; background: white; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .score-circle { width: 120px; height: 120px; border-radius: 50%; background: #1e3a5f; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .score-circle .score-num { font-size: 32px; font-weight: 700; }
+  .score-circle .score-denom { font-size: 13px; opacity: 0.8; }
+  #resultScreen h2 { font-size: 20px; color: #1e3a5f; margin-bottom: 10px; }
+  #resultScreen p { font-size: 14px; color: #555; margin-bottom: 24px; }
+  .stats-row { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+  .stat-box { background: #f7f9fc; border-radius: 8px; padding: 12px 20px; text-align: center; min-width: 90px; }
+  .stat-box .stat-val { font-size: 22px; font-weight: 700; }
+  .stat-box .stat-lbl { font-size: 11px; color: #888; margin-top: 2px; }
+  .stat-box.green .stat-val { color: #16a34a; }
+  .stat-box.red .stat-val { color: #dc2626; }
+  .stat-box.blue .stat-val { color: #2563eb; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Hiperprolactinemia</h1>
+  <p>Endocrinologia — Saúde do Adulto e do Idoso</p>
+</header>
+
+<div class="quiz-container">
+  <div id="startScreen">
+    <h2>Quiz de Revisão</h2>
+    <p>20 questões cobrindo fisiologia, causas, diagnóstico, prolactinoma, macroprolactinemia e tratamento.<br><br>Responda cada questão e veja a explicação antes de avançar.</p>
+    <button class="btn-primary" onclick="startQuiz()">Começar Quiz</button>
+  </div>
+
+  <div id="quizArea" style="display:none;">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">Questão 0 de 20</div>
+    <div class="question-card" id="questionCard">
+      <div class="question-number" id="questionNumber"></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+      <div class="explanation" id="explanation"></div>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()">Próxima questão →</button>
+    </div>
+  </div>
+
+  <div id="resultScreen">
+    <div class="score-circle">
+      <span class="score-num" id="scoreFinal">0</span>
+      <span class="score-denom" id="scoreDenom">de 20</span>
+    </div>
+    <h2 id="resultTitle"></h2>
+    <p id="resultMsg"></p>
+    <div class="stats-row">
+      <div class="stat-box green"><div class="stat-val" id="statCorrect">0</div><div class="stat-lbl">Acertos</div></div>
+      <div class="stat-box red"><div class="stat-val" id="statWrong">0</div><div class="stat-lbl">Erros</div></div>
+      <div class="stat-box blue"><div class="stat-val" id="statPct">0%</div><div class="stat-lbl">Aproveitamento</div></div>
+    </div>
+    <button class="btn-primary" onclick="restartQuiz()">Refazer Quiz</button>
+  </div>
+</div>
+
+<script>
+const rawQuestions = [
+  {
+    question: "A secreção de prolactina é regulada principalmente por qual mecanismo hipotalâmico?",
+    options: ["Tônus inibitório pela dopamina", "Estimulação pelo GHRH", "Inibição pelo TRH", "Estimulação pelo CRH"],
+    correctIndex: 0,
+    explanation: "A prolactina é o único hormônio hipofisário controlado predominantemente por inibição hipotalâmica. A dopamina (fator inibidor da prolactina) mantém sua secreção suprimida. Qualquer redução da chegada de dopamina à hipófise eleva a PRL."
+  },
+  {
+    question: "Mulher de 26 anos apresenta amenorreia há 4 meses e galactorreia bilateral. PRL: 140 ng/mL. Qual deve ser a 1ª medida antes de solicitar RM de hipófise?",
+    options: ["Afastar causas secundárias: revisar medicamentos, solicitar TSH e excluir macroprolactinemia", "Iniciar imediatamente cabergolina", "Solicitar LH, FSH e estradiol", "Realizar campimetria visual"],
+    correctIndex: 0,
+    explanation: "O primeiro passo após confirmar PRL elevada é excluir causas reversíveis: fármacos (antipsicóticos, antieméticos), hipotireoidismo (TSH) e macroprolactinemia. Só após afastar causas secundárias solicita-se a RM de sela túrcica."
+  },
+  {
+    question: "Um nível de PRL acima de 500 ng/mL é considerado:",
+    options: ["Patognomônico de macroprolactinoma", "Sugestivo de hipotireoidismo grave", "Possível com uso de risperidona em altas doses", "Normal em gestantes no 3º trimestre"],
+    correctIndex: 0,
+    explanation: "PRL >500 ng/mL é patognomônico de macroprolactinoma (tumor ≥10 mm). Níveis entre 250–500 ng/mL são fortemente sugestivos. Fármacos como risperidona raramente elevam PRL acima de 150–200 ng/mL."
+  },
+  {
+    question: "O que é macroprolactinemia e qual sua conduta?",
+    options: ["Mais de 60% da prolactina circula como macroprolactina (alto PM); paciente assintomático; não requer tratamento", "Prolactinoma >10 mm com sintomas compressivos; tratar com cabergolina", "PRL >500 ng/mL causada por adenoma hipofisário; indicar cirurgia", "Elevação de PRL por múltiplos fármacos; suspender todos os medicamentos"],
+    correctIndex: 0,
+    explanation: "Macroprolactinemia ocorre em ~20% das hiperprolactinemias. A macroprolactina é uma molécula de alto peso molecular sem efeito biológico — o paciente é assintomático. Não requer investigação adicional nem tratamento."
+  },
+  {
+    question: "Qual antipsicótico tem menor potencial de elevar a prolactina?",
+    options: ["Aripiprazol", "Risperidona", "Haloperidol", "Olanzapina"],
+    correctIndex: 0,
+    explanation: "Aripiprazol é um agonista parcial da dopamina, com pouco ou nenhum efeito sobre a PRL. Quetiapina também tem efeito mínimo. Risperidona é o antipsicótico com maior potencial hiperprolactinemiante."
+  },
+  {
+    question: "Paciente com hipotireoidismo primário (TSH 18 mUI/L) e PRL 55 ng/mL. Qual a conduta?",
+    options: ["Tratar o hipotireoidismo com levotiroxina — a PRL normaliza com a correção do TSH", "Iniciar cabergolina e levotiroxina simultaneamente", "Solicitar RM de hipófise imediatamente", "Investigar macroprolactinemia antes de qualquer conduta"],
+    correctIndex: 0,
+    explanation: "O TRH elevado pelo hipotireoidismo primário estimula diretamente a secreção de prolactina. Com o tratamento do hipotireoidismo, a PRL retorna ao normal na maioria dos casos. Iniciar agonista dopaminérgico sem corrigir a causa seria um erro."
+  },
+  {
+    question: "A diferença entre microprolactinoma e macroprolactinoma em relação ao campo visual é:",
+    options: ["Macroprolactinoma sempre exige campimetria; microprolactinoma não", "Ambos exigem campimetria de rotina", "Nenhum exige campimetria a menos que haja queixa visual", "Microprolactinoma exige campimetria se PRL >100 ng/mL"],
+    correctIndex: 0,
+    explanation: "Macroadenomas (≥10 mm) podem comprimir o quiasma óptico e causar hemianopsia bitemporal — campimetria é obrigatória. Microadenomas (<10 mm) são muito pequenos para causar compressão quiasmática e não requerem campimetria de rotina."
+  },
+  {
+    question: "Qual é o tratamento de primeira linha para prolactinoma?",
+    options: ["Agonistas dopaminérgicos (cabergolina ou bromocriptina)", "Ressecção cirúrgica transesfenoidal", "Radioterapia estereotáxica", "Octreotida (análogo de somatostatina)"],
+    correctIndex: 0,
+    explanation: "Agonistas dopaminérgicos são a primeira linha tanto para micro quanto para macroprolactinomas. A cabergolina é preferida pela melhor tolerabilidade, eficácia e comodidade posológica (2×/semana). A cirurgia fica reservada para resistência, intolerância ou compressão visual urgente."
+  },
+  {
+    question: "Homem de 40 anos com queda de libido, disfunção erétil, infertilidade e PRL 320 ng/mL. RM mostra tumor hipofisário de 14 mm. Qual a principal hipótese e conduta?",
+    options: ["Macroprolactinoma; iniciar cabergolina + solicitar campimetria visual e função gonadal", "Adenoma não funcionante com efeito de desconexão; ressecção cirúrgica", "Craniofaringioma; radioterapia", "Hipotireoidismo central; levotiroxina"],
+    correctIndex: 0,
+    explanation: "PRL 320 ng/mL com tumor >10 mm é macroprolactinoma (PRL proporcional ao volume). Cabergolina é 1ª linha mesmo em macros. Campimetria é obrigatória (risco de compressão quiasmática). Avaliar testosterona, LH, FSH pelo hipogonadismo."
+  },
+  {
+    question: "Qual é a causa mais comum de hiperprolactinemia em paciente sem gravidez e sem uso de fármacos?",
+    options: ["Prolactinoma", "Hipotireoidismo primário", "Doença renal crônica", "SOP"],
+    correctIndex: 0,
+    explanation: "O prolactinoma é a causa orgânica mais comum de hiperprolactinemia persistente. Representa ~50% dos adenomas hipofisários. O hipotireoidismo e a DRC são causas sistêmicas, mas menos prevalentes que o prolactinoma nesse cenário."
+  },
+  {
+    question: "Paciente em uso de metoclopramida por 2 meses apresenta PRL 80 ng/mL assintomática. Qual conduta?",
+    options: ["Suspender a metoclopramida (ou substituir) e redosar PRL em 3 dias", "Iniciar cabergolina imediatamente", "Solicitar RM de hipófise imediatamente", "Investigar macroprolactinemia"],
+    correctIndex: 0,
+    explanation: "Metoclopramida é antiemético que bloqueia receptores D2, elevando a PRL. A conduta é suspender o fármaco e redosar. Se a PRL normalizar, confirma-se causa farmacológica. Se persistir elevada após 3 dias de suspensão, investigar tumor."
+  },
+  {
+    question: "Quando considerar a retirada da cabergolina em microprolactinoma tratado?",
+    options: ["PRL <10 ng/mL + redução tumoral >50% + dose ≤0,5 mg/semana + tratamento com CAB", "PRL <25 ng/mL + qualquer dose de CAB + RM normal", "Após 1 ano de tratamento independentemente dos parâmetros", "Quando o paciente não apresentar galactorreia por 6 meses"],
+    correctIndex: 0,
+    explanation: "Os critérios que favorecem a remissão após retirada são: uso de cabergolina (não bromocriptina), microadenoma, PRL <10 ng/mL, redução tumoral >50% e dose de manutenção ≤0,5 mg/semana. Após retirada, monitorar PRL nos primeiros 24 meses (recorrência mais comum)."
+  },
+  {
+    question: "O efeito de 'desconexão de haste' ocorre quando:",
+    options: ["Um tumor hipofisário não secretor comprime a haste, reduzindo dopamina e elevando PRL moderadamente (até ~150–200 ng/mL)", "O prolactinoma produz excesso de PRL com níveis >500 ng/mL", "A macroprolactinemia bloqueia receptores hipofisários", "O hipotireoidismo reduz a inibição dopaminérgica"],
+    correctIndex: 0,
+    explanation: "Qualquer tumor selar que comprima a haste hipofisária interrompe o transporte de dopamina do hipotálamo para a hipófise, causando hiperprolactinemia por desconexão. Os níveis raramente ultrapassam 150–200 ng/mL — o que ajuda a distinguir de prolactinoma verdadeiro (PRL >250)."
+  },
+  {
+    question: "Qual manifestação clínica da hiperprolactinemia é mais comum em homens e tende a causar diagnóstico tardio?",
+    options: ["Queda de libido e disfunção erétil, sintomas inespecíficos que frequentemente não levam à investigação hormonal imediata", "Galactorreia bilateral espontânea", "Amenorreia secundária", "Ginecomastia unilateral dolorosa"],
+    correctIndex: 0,
+    explanation: "Em homens, a hiperprolactinemia causa queda de libido, disfunção erétil e infertilidade — sintomas inespecíficos frequentemente atribuídos a outras causas. Por isso, o diagnóstico tende a ser tardio e os tumores costumam ser maiores (macroprolactinomas) ao diagnóstico."
+  },
+  {
+    question: "Apoplexia hipofisária é caracterizada por:",
+    options: ["Cefaleia súbita intensa + déficit visual agudo — urgência que pode requerer cirurgia de emergência", "Cefaleia progressiva + galactorreia + amenorreia de instalação gradual", "Hipopituitarismo crônico com fadiga e perda de peso", "Crise hipertensiva por liberação de catecolaminas"],
+    correctIndex: 0,
+    explanation: "Apoplexia hipofisária é infarto ou hemorragia do adenoma hipofisário. Apresenta-se com cefaleia súbita ('a pior dor de cabeça da vida'), diplopia, déficit visual e pode causar insuficiência adrenal aguda. É urgência médica."
+  },
+  {
+    question: "Qual a indicação cirúrgica no tratamento do prolactinoma?",
+    options: ["Resistência ou intolerância aos agonistas dopaminérgicos e macroprolactinoma com compressão visual sem melhora rápida ao tratamento clínico", "Microprolactinoma com PRL >100 ng/mL após 6 meses de cabergolina", "Qualquer macroprolactinoma ao diagnóstico", "Prolactinoma em homem jovem com desejo de fertilidade"],
+    correctIndex: 0,
+    explanation: "A cirurgia (transesfenoidal) é reservada para: intolerância/resistência aos agonistas dopaminérgicos, macroprolactinoma com compressão visual sem resposta rápida ao tratamento medicamentoso, e apoplexia. Para microprolactinomas e macros sem urgência visual, agonistas dopaminérgicos são sempre a 1ª linha."
+  },
+  {
+    question: "Paciente assintomática com PRL 85 ng/mL. Teste de precipitação com polietilenoglicol mostra que 75% da prolactina é de alto peso molecular. Qual o diagnóstico e conduta?",
+    options: ["Macroprolactinemia — sem necessidade de tratamento ou investigação adicional", "Microprolactinoma — iniciar cabergolina", "Hiperprolactinemia farmacológica — investigar medicamentos", "Efeito gancho — repetir dosagem com diluição da amostra"],
+    correctIndex: 0,
+    explanation: "Macroprolactinemia é definida quando >60% da PRL é de alto peso molecular. A paciente é assintomática (molécula biologicamente inativa) e não requer tratamento. Evitar RM e tratamentos desnecessários."
+  },
+  {
+    question: "Qual fármaco tem mais dados de segurança para uso durante a gestação em paciente com prolactinoma?",
+    options: ["Bromocriptina", "Cabergolina", "Quinagolida", "Metildopa"],
+    correctIndex: 0,
+    explanation: "A bromocriptina tem os maiores dados de segurança fetal acumulados ao longo de décadas de uso. A cabergolina é mais eficaz e tolerada, mas tem menos dados gestacionais que a bromocriptina. Em geral, nos casos em que a medicação precisa ser mantida na gestação, bromocriptina é preferida."
+  },
+  {
+    question: "O microprolactinoma não tratado tem qual evolução esperada?",
+    options: ["Menos de 10% progridem para macroadenoma — a maioria permanece estável ou regride", "Cerca de 50% crescem para macroadenoma em 5 anos", "Quase todos regridem espontaneamente em 2 anos", "Sempre progridem para macroprolactinoma se não tratados"],
+    correctIndex: 0,
+    explanation: "Microprolactinomas são tumores de comportamento geralmente benigno e pouco progressivos. Menos de 10% evoluem para macroadenoma. Essa característica permite uma abordagem mais conservadora em casos selecionados (ex.: mulher em menopausa, sem sintomas significativos)."
+  },
+  {
+    question: "Mulher de 28 anos com amenorreia, galactorreia e PRL 120 ng/mL. RM mostra tumor de 7 mm. Além de iniciar cabergolina, quais parâmetros devem ser monitorados?",
+    options: ["PRL sérica, RM de hipófise periódica e função gonadal (LH, FSH, estradiol)", "Apenas PRL sérica a cada 6 meses", "Campimetria visual e cortisol matinal a cada 3 meses", "Somente RM anual independentemente da PRL"],
+    correctIndex: 0,
+    explanation: "No microprolactinoma em tratamento, monitorar: PRL (para avaliar resposta — meta: normalização), RM de hipófise (para avaliar redução tumoral; pode ser a cada 1–2 anos se PRL normalizada) e função gonadal para confirmar recuperação do eixo reprodutivo."
+  }
+];
+
+function shuffleQuestion(q) {
+  const correctText = q.options[q.correctIndex];
+  const shuffled = [...q.options];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return { ...q, options: shuffled, correctIndex: shuffled.indexOf(correctText) };
+}
+
+let questions = [];
+let current = 0;
+let score = 0;
+
+function startQuiz() {
+  questions = rawQuestions.map(shuffleQuestion).sort(() => Math.random() - 0.5);
+  current = 0; score = 0;
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('scoreDenom').textContent = 'de ' + questions.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const total = questions.length;
+  document.getElementById('progressBar').style.width = ((current / total) * 100) + '%';
+  document.getElementById('progressLabel').textContent = 'Questão ' + (current + 1) + ' de ' + total;
+  document.getElementById('questionNumber').textContent = 'Questão ' + (current + 1);
+  document.getElementById('questionText').textContent = q.question;
+  const expl = document.getElementById('explanation');
+  expl.className = 'explanation';
+  expl.textContent = '';
+  const btn = document.getElementById('btnNext');
+  btn.className = 'btn-next';
+  btn.textContent = current === total - 1 ? 'Ver resultado' : 'Próxima questão →';
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const b = document.createElement('button');
+    b.className = 'option-btn';
+    b.textContent = opt;
+    b.onclick = () => selectAnswer(i);
+    container.appendChild(b);
+  });
+}
+
+function selectAnswer(selected) {
+  const q = questions[current];
+  const buttons = document.querySelectorAll('.option-btn');
+  buttons.forEach(b => b.disabled = true);
+  buttons[selected].classList.add(selected === q.correctIndex ? 'correct' : 'wrong');
+  if (selected !== q.correctIndex) buttons[q.correctIndex].classList.add('correct');
+  if (selected === q.correctIndex) score++;
+  const expl = document.getElementById('explanation');
+  expl.textContent = q.explanation;
+  expl.className = 'explanation show';
+  document.getElementById('btnNext').className = 'btn-next show';
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) { renderQuestion(); }
+  else { showResult(); }
+}
+
+function showResult() {
+  document.getElementById('quizArea').style.display = 'none';
+  const rs = document.getElementById('resultScreen');
+  rs.style.display = 'block';
+  const pct = Math.round((score / questions.length) * 100);
+  document.getElementById('scoreFinal').textContent = score;
+  document.getElementById('statCorrect').textContent = score;
+  document.getElementById('statWrong').textContent = questions.length - score;
+  document.getElementById('statPct').textContent = pct + '%';
+  let title, msg;
+  if (pct >= 90) { title = 'Excelente!'; msg = 'Domínio sólido do tema. Continue assim!'; }
+  else if (pct >= 70) { title = 'Muito bom!'; msg = 'Bom desempenho. Revise os pontos errados.'; }
+  else if (pct >= 50) { title = 'Regular'; msg = 'Revise o relatório e refaça o quiz.'; }
+  else { title = 'Precisa revisar'; msg = 'Releia o material com atenção antes de tentar novamente.'; }
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMsg').textContent = msg;
+}
+
+function restartQuiz() {
+  document.getElementById('resultScreen').style.display = 'none';
+  startQuiz();
+}
+</script>
+</body>
+</html>
