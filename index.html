@@ -94,25 +94,25 @@
 const rawQuestions = [
   {
     question: "A secreção de prolactina é regulada principalmente por qual mecanismo hipotalâmico?",
-    options: ["Tônus inibitório pela dopamina", "Estimulação pelo GHRH", "Inibição pelo TRH", "Estimulação pelo CRH"],
+    options: ["Inibição pela dopamina (principal)", "Estimulação pelo GHRH hipotalâmico", "Inibição pelo TRH hipotalâmico", "Estimulação pelo CRH hipotalâmico"],
     correctIndex: 0,
     explanation: "A prolactina é o único hormônio hipofisário controlado predominantemente por inibição hipotalâmica. A dopamina (fator inibidor da prolactina) mantém sua secreção suprimida. Qualquer redução da chegada de dopamina à hipófise eleva a PRL."
   },
   {
     question: "Mulher de 26 anos apresenta amenorreia há 4 meses e galactorreia bilateral. PRL: 140 ng/mL. Qual deve ser a 1ª medida antes de solicitar RM de hipófise?",
-    options: ["Afastar causas secundárias: revisar medicamentos, solicitar TSH e excluir macroprolactinemia", "Iniciar imediatamente cabergolina", "Solicitar LH, FSH e estradiol", "Realizar campimetria visual"],
+    options: ["Afastar causas reversíveis: fármacos, TSH, macroprolactinemia", "Iniciar agonista dopaminérgico sem investigação prévia", "Solicitar dosagem de LH, FSH e estradiol imediatamente", "Realizar campimetria visual como primeira avaliação"],
     correctIndex: 0,
     explanation: "O primeiro passo após confirmar PRL elevada é excluir causas reversíveis: fármacos (antipsicóticos, antieméticos), hipotireoidismo (TSH) e macroprolactinemia. Só após afastar causas secundárias solicita-se a RM de sela túrcica."
   },
   {
     question: "Um nível de PRL acima de 500 ng/mL é considerado:",
-    options: ["Patognomônico de macroprolactinoma", "Sugestivo de hipotireoidismo grave", "Possível com uso de risperidona em altas doses", "Normal em gestantes no 3º trimestre"],
+    options: ["Patognomônico de macroprolactinoma", "Sugestivo de hipotireoidismo grave", "Possível com uso de risperidona em dose alta", "Normal em gestantes no 3º trimestre"],
     correctIndex: 0,
     explanation: "PRL >500 ng/mL é patognomônico de macroprolactinoma (tumor ≥10 mm). Níveis entre 250–500 ng/mL são fortemente sugestivos. Fármacos como risperidona raramente elevam PRL acima de 150–200 ng/mL."
   },
   {
     question: "O que é macroprolactinemia e qual sua conduta?",
-    options: ["Mais de 60% da prolactina circula como macroprolactina (alto PM); paciente assintomático; não requer tratamento", "Prolactinoma >10 mm com sintomas compressivos; tratar com cabergolina", "PRL >500 ng/mL causada por adenoma hipofisário; indicar cirurgia", "Elevação de PRL por múltiplos fármacos; suspender todos os medicamentos"],
+    options: ["Macroprolactina >60% da PRL total (alto PM); assintomático, sem tratamento", "Prolactinoma >10 mm com sintomas compressivos; tratar com cabergolina", "PRL >500 ng/mL causada por adenoma hipofisário; indicar cirurgia", "Elevação de PRL por múltiplos fármacos; suspender todos os medicamentos"],
     correctIndex: 0,
     explanation: "Macroprolactinemia ocorre em ~20% das hiperprolactinemias. A macroprolactina é uma molécula de alto peso molecular sem efeito biológico — o paciente é assintomático. Não requer investigação adicional nem tratamento."
   },
@@ -124,91 +124,91 @@ const rawQuestions = [
   },
   {
     question: "Paciente com hipotireoidismo primário (TSH 18 mUI/L) e PRL 55 ng/mL. Qual a conduta?",
-    options: ["Tratar o hipotireoidismo com levotiroxina — a PRL normaliza com a correção do TSH", "Iniciar cabergolina e levotiroxina simultaneamente", "Solicitar RM de hipófise imediatamente", "Investigar macroprolactinemia antes de qualquer conduta"],
+    options: ["Tratar hipotireoidismo com levotiroxina; PRL normaliza", "Iniciar cabergolina + levotiroxina simultaneamente", "Solicitar RM de hipófise como primeiro passo", "Investigar macroprolactinemia antes de tratar"],
     correctIndex: 0,
     explanation: "O TRH elevado pelo hipotireoidismo primário estimula diretamente a secreção de prolactina. Com o tratamento do hipotireoidismo, a PRL retorna ao normal na maioria dos casos. Iniciar agonista dopaminérgico sem corrigir a causa seria um erro."
   },
   {
     question: "A diferença entre microprolactinoma e macroprolactinoma em relação ao campo visual é:",
-    options: ["Macroprolactinoma sempre exige campimetria; microprolactinoma não", "Ambos exigem campimetria de rotina", "Nenhum exige campimetria a menos que haja queixa visual", "Microprolactinoma exige campimetria se PRL >100 ng/mL"],
+    options: ["Macroprolactinoma: obrigatória; microprolactinoma: não é necessária", "Ambos exigem campimetria de rotina anualmente", "Nenhum exige campimetria sem queixa visual", "Microprolactinoma exige campimetria se PRL >100"],
     correctIndex: 0,
     explanation: "Macroadenomas (≥10 mm) podem comprimir o quiasma óptico e causar hemianopsia bitemporal — campimetria é obrigatória. Microadenomas (<10 mm) são muito pequenos para causar compressão quiasmática e não requerem campimetria de rotina."
   },
   {
     question: "Qual é o tratamento de primeira linha para prolactinoma?",
-    options: ["Agonistas dopaminérgicos (cabergolina ou bromocriptina)", "Ressecção cirúrgica transesfenoidal", "Radioterapia estereotáxica", "Octreotida (análogo de somatostatina)"],
+    options: ["Cabergolina ou bromocriptina (agonistas dopaminérgicos)", "Ressecção transesfenoidal (cirurgia, 2ª linha)", "Radioterapia estereotáxica (gamma knife, 3ª linha)", "Octreotida ou lanreotida (análogos de somatostatina)"],
     correctIndex: 0,
     explanation: "Agonistas dopaminérgicos são a primeira linha tanto para micro quanto para macroprolactinomas. A cabergolina é preferida pela melhor tolerabilidade, eficácia e comodidade posológica (2×/semana). A cirurgia fica reservada para resistência, intolerância ou compressão visual urgente."
   },
   {
     question: "Homem de 40 anos com queda de libido, disfunção erétil, infertilidade e PRL 320 ng/mL. RM mostra tumor hipofisário de 14 mm. Qual a principal hipótese e conduta?",
-    options: ["Macroprolactinoma; iniciar cabergolina + solicitar campimetria visual e função gonadal", "Adenoma não funcionante com efeito de desconexão; ressecção cirúrgica", "Craniofaringioma; radioterapia", "Hipotireoidismo central; levotiroxina"],
+    options: ["Macroprolactinoma: cabergolina + campimetria obrigatória", "Adenoma não secretor: ressecção cirúrgica transesfenoidal", "Craniofaringioma: ressecção + radioterapia adjuvante", "Hipotireoidismo central: levotiroxina (causa reversível)"],
     correctIndex: 0,
     explanation: "PRL 320 ng/mL com tumor >10 mm é macroprolactinoma (PRL proporcional ao volume). Cabergolina é 1ª linha mesmo em macros. Campimetria é obrigatória (risco de compressão quiasmática). Avaliar testosterona, LH, FSH pelo hipogonadismo."
   },
   {
     question: "Qual é a causa mais comum de hiperprolactinemia em paciente sem gravidez e sem uso de fármacos?",
-    options: ["Prolactinoma", "Hipotireoidismo primário", "Doença renal crônica", "SOP"],
+    options: ["Prolactinoma — tumor hipofisário secretor", "Hipotireoidismo primário — TRH estimula PRL", "Doença renal crônica — clearance reduzido", "SOP — anovulação + hiperandrogenismo"],
     correctIndex: 0,
     explanation: "O prolactinoma é a causa orgânica mais comum de hiperprolactinemia persistente. Representa ~50% dos adenomas hipofisários. O hipotireoidismo e a DRC são causas sistêmicas, mas menos prevalentes que o prolactinoma nesse cenário."
   },
   {
     question: "Paciente em uso de metoclopramida por 2 meses apresenta PRL 80 ng/mL assintomática. Qual conduta?",
-    options: ["Suspender a metoclopramida (ou substituir) e redosar PRL em 3 dias", "Iniciar cabergolina imediatamente", "Solicitar RM de hipófise imediatamente", "Investigar macroprolactinemia"],
+    options: ["Suspender metoclopramida e redosar PRL em 3 dias", "Iniciar cabergolina antes de suspender o fármaco", "Solicitar RM de hipófise como primeira conduta", "Investigar macroprolactinemia como diagnóstico"],
     correctIndex: 0,
     explanation: "Metoclopramida é antiemético que bloqueia receptores D2, elevando a PRL. A conduta é suspender o fármaco e redosar. Se a PRL normalizar, confirma-se causa farmacológica. Se persistir elevada após 3 dias de suspensão, investigar tumor."
   },
   {
     question: "Quando considerar a retirada da cabergolina em microprolactinoma tratado?",
-    options: ["PRL <10 ng/mL + redução tumoral >50% + dose ≤0,5 mg/semana + tratamento com CAB", "PRL <25 ng/mL + qualquer dose de CAB + RM normal", "Após 1 ano de tratamento independentemente dos parâmetros", "Quando o paciente não apresentar galactorreia por 6 meses"],
+    options: ["PRL <10 ng/mL + tumor >50% reduzido + dose ≤0,5 mg/sem (CAB)", "PRL <25 ng/mL + qualquer dose de CAB + RM normal", "Após 1 ano de tratamento independentemente dos parâmetros", "Quando o paciente não apresentar galactorreia por 6 meses"],
     correctIndex: 0,
     explanation: "Os critérios que favorecem a remissão após retirada são: uso de cabergolina (não bromocriptina), microadenoma, PRL <10 ng/mL, redução tumoral >50% e dose de manutenção ≤0,5 mg/semana. Após retirada, monitorar PRL nos primeiros 24 meses (recorrência mais comum)."
   },
   {
     question: "O efeito de 'desconexão de haste' ocorre quando:",
-    options: ["Um tumor hipofisário não secretor comprime a haste, reduzindo dopamina e elevando PRL moderadamente (até ~150–200 ng/mL)", "O prolactinoma produz excesso de PRL com níveis >500 ng/mL", "A macroprolactinemia bloqueia receptores hipofisários", "O hipotireoidismo reduz a inibição dopaminérgica"],
+    options: ["Tumor comprime haste → ↓dopamina → PRL moderada (≤200 ng/mL)", "O prolactinoma produz excesso de PRL com níveis >500 ng/mL", "A macroprolactinemia bloqueia receptores hipofisários", "O hipotireoidismo reduz a inibição dopaminérgica"],
     correctIndex: 0,
     explanation: "Qualquer tumor selar que comprima a haste hipofisária interrompe o transporte de dopamina do hipotálamo para a hipófise, causando hiperprolactinemia por desconexão. Os níveis raramente ultrapassam 150–200 ng/mL — o que ajuda a distinguir de prolactinoma verdadeiro (PRL >250)."
   },
   {
     question: "Qual manifestação clínica da hiperprolactinemia é mais comum em homens e tende a causar diagnóstico tardio?",
-    options: ["Queda de libido e disfunção erétil, sintomas inespecíficos que frequentemente não levam à investigação hormonal imediata", "Galactorreia bilateral espontânea", "Amenorreia secundária", "Ginecomastia unilateral dolorosa"],
+    options: ["Queda de libido + disfunção erétil (diagnóstico tardio)", "Galactorreia bilateral espontânea (sinal mais óbvio)", "Amenorreia secundária com ciclos irregulares", "Ginecomastia unilateral — sinal de excesso hormonal"],
     correctIndex: 0,
     explanation: "Em homens, a hiperprolactinemia causa queda de libido, disfunção erétil e infertilidade — sintomas inespecíficos frequentemente atribuídos a outras causas. Por isso, o diagnóstico tende a ser tardio e os tumores costumam ser maiores (macroprolactinomas) ao diagnóstico."
   },
   {
     question: "Apoplexia hipofisária é caracterizada por:",
-    options: ["Cefaleia súbita intensa + déficit visual agudo — urgência que pode requerer cirurgia de emergência", "Cefaleia progressiva + galactorreia + amenorreia de instalação gradual", "Hipopituitarismo crônico com fadiga e perda de peso", "Crise hipertensiva por liberação de catecolaminas"],
+    options: ["Cefaleia súbita + déficit visual agudo (urgência cirúrgica)", "Cefaleia progressiva + galactorreia + amenorreia gradual", "Hipopituitarismo crônico com fadiga e perda de peso", "Crise hipertensiva por liberação de catecolaminas"],
     correctIndex: 0,
     explanation: "Apoplexia hipofisária é infarto ou hemorragia do adenoma hipofisário. Apresenta-se com cefaleia súbita ('a pior dor de cabeça da vida'), diplopia, déficit visual e pode causar insuficiência adrenal aguda. É urgência médica."
   },
   {
     question: "Qual a indicação cirúrgica no tratamento do prolactinoma?",
-    options: ["Resistência ou intolerância aos agonistas dopaminérgicos e macroprolactinoma com compressão visual sem melhora rápida ao tratamento clínico", "Microprolactinoma com PRL >100 ng/mL após 6 meses de cabergolina", "Qualquer macroprolactinoma ao diagnóstico", "Prolactinoma em homem jovem com desejo de fertilidade"],
+    options: ["Resistência ou intolerância a agonistas + compressão visual sem melhora", "Microprolactinoma com PRL >100 após 6 meses de cabergolina", "Qualquer macroprolactinoma ao diagnóstico (mesmo sem sintomas)", "Prolactinoma em homem com desejo de fertilidade"],
     correctIndex: 0,
     explanation: "A cirurgia (transesfenoidal) é reservada para: intolerância/resistência aos agonistas dopaminérgicos, macroprolactinoma com compressão visual sem resposta rápida ao tratamento medicamentoso, e apoplexia. Para microprolactinomas e macros sem urgência visual, agonistas dopaminérgicos são sempre a 1ª linha."
   },
   {
     question: "Paciente assintomática com PRL 85 ng/mL. Teste de precipitação com polietilenoglicol mostra que 75% da prolactina é de alto peso molecular. Qual o diagnóstico e conduta?",
-    options: ["Macroprolactinemia — sem necessidade de tratamento ou investigação adicional", "Microprolactinoma — iniciar cabergolina", "Hiperprolactinemia farmacológica — investigar medicamentos", "Efeito gancho — repetir dosagem com diluição da amostra"],
+    options: ["Macroprolactinemia — sem tratamento necessário", "Microprolactinoma — iniciar cabergolina agora", "Hiperprolactinemia farmacológica — checar fármacos", "Efeito gancho — repetir com amostra diluída"],
     correctIndex: 0,
     explanation: "Macroprolactinemia é definida quando >60% da PRL é de alto peso molecular. A paciente é assintomática (molécula biologicamente inativa) e não requer tratamento. Evitar RM e tratamentos desnecessários."
   },
   {
     question: "Qual fármaco tem mais dados de segurança para uso durante a gestação em paciente com prolactinoma?",
-    options: ["Bromocriptina", "Cabergolina", "Quinagolida", "Metildopa"],
+    options: ["Bromocriptina — maior experiência gestacional", "Cabergolina — mais eficaz, menos dados em gestação", "Quinagolida — agonista não ergotínico, sem dados gest.", "Metildopa — anti-hipertensivo, não é agonista"],
     correctIndex: 0,
     explanation: "A bromocriptina tem os maiores dados de segurança fetal acumulados ao longo de décadas de uso. A cabergolina é mais eficaz e tolerada, mas tem menos dados gestacionais que a bromocriptina. Em geral, nos casos em que a medicação precisa ser mantida na gestação, bromocriptina é preferida."
   },
   {
     question: "O microprolactinoma não tratado tem qual evolução esperada?",
-    options: ["Menos de 10% progridem para macroadenoma — a maioria permanece estável ou regride", "Cerca de 50% crescem para macroadenoma em 5 anos", "Quase todos regridem espontaneamente em 2 anos", "Sempre progridem para macroprolactinoma se não tratados"],
+    options: ["<10% progridem para macro; maioria permanece estável", "Cerca de 50% crescem para macroadenoma em 5 anos", "Quase todos regridem espontaneamente em 2 anos", "Sempre progridem para macroprolactinoma se não tratados"],
     correctIndex: 0,
     explanation: "Microprolactinomas são tumores de comportamento geralmente benigno e pouco progressivos. Menos de 10% evoluem para macroadenoma. Essa característica permite uma abordagem mais conservadora em casos selecionados (ex.: mulher em menopausa, sem sintomas significativos)."
   },
   {
     question: "Mulher de 28 anos com amenorreia, galactorreia e PRL 120 ng/mL. RM mostra tumor de 7 mm. Além de iniciar cabergolina, quais parâmetros devem ser monitorados?",
-    options: ["PRL sérica, RM de hipófise periódica e função gonadal (LH, FSH, estradiol)", "Apenas PRL sérica a cada 6 meses", "Campimetria visual e cortisol matinal a cada 3 meses", "Somente RM anual independentemente da PRL"],
+    options: ["PRL sérica, RM periódica e função gonadal (LH, FSH, E2)", "Apenas PRL sérica semestral (sem RM ou hormônios)", "Campimetria visual e cortisol matinal a cada 3 meses", "Somente RM anual, mesmo com PRL normalizada"],
     correctIndex: 0,
     explanation: "No microprolactinoma em tratamento, monitorar: PRL (para avaliar resposta — meta: normalização), RM de hipófise (para avaliar redução tumoral; pode ser a cada 1–2 anos se PRL normalizada) e função gonadal para confirmar recuperação do eixo reprodutivo."
   }
